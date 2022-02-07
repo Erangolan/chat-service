@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
     const socket = app.get('socketIO')
     let name
 
-    if (userName === '' || userName === undefined || userName === null) {
+    if (userName === '') {
       name = socket.disconnected[socket.disconnected.length - 1].name
       socket.to(socketId).emit('refresh', name)
     }
