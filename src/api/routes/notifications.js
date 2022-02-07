@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
       message: 'success',
     })
   } catch (e) {
-    console.log({ stack: e.stack }, 'error with this files', { message: e.toString() })
+    console.log({ stack: e.stack }, 'error with notifications route', { message: e.toString() })
 
     return res.status(500).json({
       error: e,
