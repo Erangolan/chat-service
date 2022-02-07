@@ -1,6 +1,8 @@
 const http = require('http')
 const socketIo = require('socket.io')
 
+const messages = []
+
 const initSocket = (app, port) => {
   const server = http.createServer(app)
   const options = {
@@ -21,6 +23,7 @@ const initSocket = (app, port) => {
     console.log(err)
   })
   server.listen(port, () => console.log(`Listening on port ${port}`))
+  io.messages = messages
   return io
 }
 
