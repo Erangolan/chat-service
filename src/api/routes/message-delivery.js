@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
       userName,
     }
 
-    app.messages.push(pack)
+    socket.messages.push(pack)
 
     socket.emit(MESSAGE, pack)
     console.log('pack sent: ', socketId)

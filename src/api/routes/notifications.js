@@ -13,22 +13,21 @@ router.post('/', async (req, res) => {
       },
     } = req
 
-    const jsonMessages = app.messages
     const socket = app.get('socketIO')
+    const { messages, disconnected, connected } = socket
     let name
 
     if (userName === '') {
-      name = socket.disconnected[socket.disconnected.length - 1].name
-      socket.to(socketId).emit('refresh', name)
+      ({ name } = disconnected[disconnected.length - 1])
     }
 
-    socket.connected.push({ socketId, name: name || userName })
-    socket.emit('join', `${name || userName} joined the chat`)
+    connected.push({ socketId, name: userName || name })
+    socket.emit('join', `${userName || name} joined the chat`)
 
     const pack = {
       socketId,
-      userName: userName || name,
-      messages: jsonMessages,
+      name: userName || name,
+      messages,
     }
 
     socket.to(socketId).emit(MESSAGES, pack)
